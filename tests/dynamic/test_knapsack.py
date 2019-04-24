@@ -80,7 +80,7 @@ def test_knapsack_bottomup_first_bigger(costs):
     res = maximum_sum_bottomup(weights, costs, capacity=7)
     assert res == 9
 
-#@pytest.mark.skip(reason="This test is failing due to long recursion chain")
+@pytest.mark.skip(reason="This test is failing due to long recursion chain")
 def test_knapsack_bottomup_on_big_list():
     from knapsack_test_data import weights, profits
 
