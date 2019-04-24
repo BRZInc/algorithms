@@ -1,4 +1,5 @@
 from dynamic.knapsack import maximum_sum_bruteforce
+from datetime import datetime
 import pytest
 
 
@@ -22,3 +23,15 @@ def test_knapsack_bruteforce_positive(weights, costs, capacity, expected):
 def test_knapsack_bruteforce_empty_selection():
     res = maximum_sum_bruteforce([], [], capacity=7)
     assert res == 0
+
+def test_knapsack_on_big_list():
+    from knapsack_test_data import weights, profits
+
+    capacity = 1000
+    t1 = datetime.now()
+    res = maximum_sum_bruteforce(weights, profits, capacity)
+    t2 = datetime.now()
+
+    print(t2-t1)
+
+    assert res > 0
