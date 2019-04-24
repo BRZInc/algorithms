@@ -67,7 +67,7 @@ def maximum_sum_bottomup(weights, profit, capacity=7):
 
             decision_matrix[i][cap] = max(profit1, profit2)
 
-    print_knapsack_contents(decision_matrix, weights, profit, capacity)
+    #print_knapsack_contents(decision_matrix, weights, profit, capacity)
 
     return decision_matrix[len(weights) - 1][capacity]
 

@@ -30,7 +30,7 @@ def test_knapsack_bruteforce_on_big_list():
 
     capacity = 1000
     t1 = datetime.now()
-    res = maximum_sum_bruteforce(weights[:900], profits[:900], capacity)
+    res = maximum_sum_bruteforce(weights[:100], profits[:100], capacity)
     t2 = datetime.now()
 
     print(t2-t1)
@@ -53,7 +53,7 @@ def test_knapsack_memoized_on_big_list():
 
     capacity = 1000
     t1 = datetime.now()
-    res = maximum_sum_memoization(weights[:900], profits[:900], capacity)
+    res = maximum_sum_memoization(weights[:100], profits[:100], capacity)
     t2 = datetime.now()
 
     print(t2-t1)
@@ -80,13 +80,13 @@ def test_knapsack_bottomup_first_bigger(costs):
     res = maximum_sum_bottomup(weights, costs, capacity=7)
     assert res == 9
 
-@pytest.mark.skip(reason="This test is failing due to long recursion chain")
+#@pytest.mark.skip(reason="This test is failing due to long recursion chain")
 def test_knapsack_bottomup_on_big_list():
     from knapsack_test_data import weights, profits
 
     capacity = 1000
     t1 = datetime.now()
-    res = maximum_sum_bottomup(weights[:900], profits[:900], capacity)
+    res = maximum_sum_bottomup(weights, profits, capacity)
     t2 = datetime.now()
 
     print(t2-t1)
