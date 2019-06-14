@@ -30,7 +30,7 @@ class Tree(object):
         
         return None
 
-    # TODO: DFS using Stack
+    # DFS using Stack
     def dfs_with_stack(self, value):
         if not self.root:
             return None
