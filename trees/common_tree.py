@@ -81,6 +81,23 @@ class Tree(object):
         return min
 
     # Max
+    def find_max_bfs(self):
+        if not self.root:
+            return None
+        q = deque()
+        q.append(self.root)
+        max = self.root.value
+
+        while q:
+            node = q.popleft()
+            print("Checking Node '{}'".format(node.value))
+            if node.value > max:
+                max = node.value
+            for child in node.children:
+                q.append(child)
+
+        return max
+
     def find_max_dfs(self):
         if not self.root:
             return None
@@ -149,6 +166,9 @@ if __name__ == "__main__":
 
     print("Find min using DFS")
     print(t.find_min_dfs())
+
+    print("Find max using BFS")
+    print(t.find_max_bfs())
 
     print("Find max using DFS")
     print(t.find_max_dfs())
