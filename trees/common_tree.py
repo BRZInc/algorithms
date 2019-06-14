@@ -46,6 +46,29 @@ class Tree(object):
                 q.append(child)
         return None
 
+    # Min
+    def find_min(self):
+        if not self.root:
+            return None
+        min = self.root.value
+        q = deque()
+        q.append(self.root)
+
+        while q:
+            node = q.popleft()
+            if node.value < min:
+                min = node.value
+            for child in node.children:
+                q.append(child)
+
+        return min
+    # Max
+    # Insert
+    # Update
+    # Delete
+    # List
+
+
 if __name__ == "__main__":
     n13 = Node(value=13)
     n12 = Node(value=12)
@@ -86,3 +109,6 @@ if __name__ == "__main__":
 
     print("BFS Searching for -1")
     print(t.bfs(-1))
+
+    print("Find min using BFS")
+    print(t.find_min())
