@@ -79,7 +79,24 @@ class Tree(object):
                 q.append(child)
 
         return min
+
     # Max
+    def find_max_dfs(self):
+        if not self.root:
+            return None
+        max = self.root.value
+        return self._find_max_dfs_recursive(max, self.root)
+
+    def _find_max_dfs_recursive(self, max, node):
+        print("Checking Node '{}'".format(node.value))
+        if node.value > max:
+            max = node.value
+
+        for child in node.children:
+            max = self._find_max_dfs_recursive(max, child)
+
+        return max
+
     # Insert
     # Update
     # Delete
@@ -132,3 +149,6 @@ if __name__ == "__main__":
 
     print("Find min using DFS")
     print(t.find_min_dfs())
+
+    print("Find max using DFS")
+    print(t.find_max_dfs())
