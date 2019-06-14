@@ -205,6 +205,37 @@ class AdjacencyListTree(object):
 
         return max_height
 
+    # Count
+    def get_count_bfs(self):
+        q = deque()
+        q.append(self.root)
+        count = 0
+
+        while q:
+            node_index = q.popleft()
+            node = self.nodes[node_index]
+            count +=1
+            for child_index in node.children:
+                q.append(child_index)
+
+        return count
+
+    def get_count_dfs(self):
+        if not self.nodes:
+            return None
+
+        count = 0
+        return self._get_count_dfs_recursive(count, self.root)
+
+    def _get_count_dfs_recursive(self, count, node_index):
+        print("Checking Node '{}'".format(node_index))
+        node = self.nodes[node_index]
+        count += 1
+
+        for child_index in node.children:
+            count += self._get_count_dfs_recursive(0, child_index)
+
+        return count
 
 if __name__ == "__main__":
     nodes = {
@@ -283,3 +314,9 @@ if __name__ == "__main__":
 
     print("Find max height using DFS")
     print(t.get_max_height())
+
+    print("Total count using BFS")
+    print(t.get_count_bfs())
+
+    print("Total count using DFS")
+    print(t.get_count_dfs())
