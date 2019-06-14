@@ -1,3 +1,5 @@
+from collections import deque
+
 class Node(object):
     def __init__(self, value=0, children=[]):
         self.value = value
@@ -28,6 +30,22 @@ class Tree(object):
         
         return None
 
+    def bfs(self, value):
+        if not self.root:
+            return None
+
+        q = deque()
+        q.append(self.root)
+
+        while q:
+            node = q.popleft()
+            print("Checking Node '{}'".format(node.value))
+            if node.value == value:
+                return node
+            for child in node.children:
+                q.append(child)
+        return None
+
 if __name__ == "__main__":
     n13 = Node(value=13)
     n12 = Node(value=12)
@@ -45,14 +63,26 @@ if __name__ == "__main__":
     n0 = Node(value=0, children=[n1, n2, n3])
 
     t = Tree(n0)
-    print("Searching for 6")
+    print("DFS Searching for 6")
     print(t.dfs(6))
 
-    print("Searching for 13")
+    print("DFS Searching for 13")
     print(t.dfs(13))
 
-    print("Searching for 15")
+    print("DFS Searching for 15")
     print(t.dfs(15))
 
-    print("Searching for -1")
+    print("DFS Searching for -1")
     print(t.dfs(-1))
+
+    print("BFS Searching for 6")
+    print(t.bfs(6))
+
+    print("BFS Searching for 13")
+    print(t.bfs(13))
+
+    print("BFS Searching for 15")
+    print(t.bfs(15))
+
+    print("BFS Searching for -1")
+    print(t.bfs(-1))
