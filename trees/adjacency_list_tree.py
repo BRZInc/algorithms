@@ -1,3 +1,5 @@
+from collections import deque
+
 """
     + Quick access to elements
     + Small amount of required memory
@@ -30,6 +32,21 @@ class AdjacencyListTree(object):
             return
         for child in node:
             self._dfs_recursive(child)
+    
+    def bfs(self):
+        if not self.nodes:
+            return -1
+        q = deque()
+        q.append(self.root)
+
+        while q:
+            node_index = q.popleft()
+            print("Checking Node '{}'".format(node_index))
+            children = self.nodes.get(node_index)
+            if not children:
+                continue
+            for child_index in children:
+                q.append(child_index)
 
 if __name__ == "__main__":
     nodes = {
@@ -66,6 +83,9 @@ if __name__ == "__main__":
 
     print("DFS Walkthrough")
     t.dfs()
+
+    print("BFS Walkthrough")
+    t.bfs()
 
     # print("DFS Stack Searching for 6")
     # print(t.dfs_with_stack(6))
