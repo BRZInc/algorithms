@@ -48,7 +48,7 @@ class AdjacencyListTree(object):
 
         return None
     
-    def bfs(self):
+    def bfs(self, value):
         if not self.nodes:
             return -1
         q = deque()
@@ -56,12 +56,19 @@ class AdjacencyListTree(object):
 
         while q:
             node_index = q.popleft()
+            node = self.nodes[node_index]
             print("Checking Node '{}'".format(node_index))
-            children = self.nodes.get(node_index)
-            if not children:
+
+            if node.value == value:
+                return node
+
+            if not node.children:
                 continue
-            for child_index in children:
+
+            for child_index in node.children:
                 q.append(child_index)
+
+        return None
 
 if __name__ == "__main__":
     nodes = {
@@ -108,32 +115,17 @@ if __name__ == "__main__":
     print("DFS Search for 0")
     print(t.dfs(0))
 
-    # print("BFS Search for 40")
-    # t.bfs()
+    print("BFS Searching for 40")
+    print(t.bfs(40))
 
-    # print("DFS Stack Searching for 6")
-    # print(t.dfs_with_stack(6))
+    print("BFS Searching for 70")
+    print(t.bfs(70))
 
-    # print("DFS Stack Searching for 13")
-    # print(t.dfs_with_stack(13))
+    print("BFS Searching for 90")
+    print(t.bfs(90))
 
-    # print("DFS Stack Searching for 15")
-    # print(t.dfs_with_stack(15))
-
-    # print("DFS Stack Searching for -1")
-    # print(t.dfs_with_stack(-1))
-
-    # print("BFS Searching for 6")
-    # print(t.bfs(6))
-
-    # print("BFS Searching for 13")
-    # print(t.bfs(13))
-
-    # print("BFS Searching for 15")
-    # print(t.bfs(15))
-
-    # print("BFS Searching for -1")
-    # print(t.bfs(-1))
+    print("BFS Searching for 0")
+    print(t.bfs(0))
 
     # print("Find min using BFS")
     # print(t.find_min_bfs())
