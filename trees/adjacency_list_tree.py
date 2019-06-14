@@ -156,6 +156,30 @@ class AdjacencyListTree(object):
     def get_list(self):
         return [node for key, node in self.nodes.items()]
 
+    def get_min_height(self):
+        if not self.nodes:
+            return None
+
+        min_height = 32000
+        return self._get_min_height_recursive(0, min_height, self.root)
+
+    def _get_min_height_recursive(self, height, min_height, node_index):
+        print("Checking Node '{}' with height '{}' and min_height '{}'".format(node_index, height, min_height))
+        node = self.nodes.get(node_index)
+        height = height + 1
+        if not node:
+            return None
+        if len(node.children) == 0:
+            if height < min_height:
+                min_height = height
+
+        for child_index in node.children:
+            res = self._get_min_height_recursive(height, min_height, child_index)
+            if res and res < min_height:
+                min_height = res
+
+        return min_height
+
 if __name__ == "__main__":
     nodes = {
         0: Node(id=0, value=5, children=[1, 2, 3]),
@@ -228,8 +252,8 @@ if __name__ == "__main__":
     print("Get all nodes list")
     print(t.get_list())
 
-    # print("Find min height using DFS")
-    # print(t.get_min_height())
+    print("Find min height using DFS")
+    print(t.get_min_height())
 
     # print("Find max height using DFS")
     # print(t.get_max_height())
