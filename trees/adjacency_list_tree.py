@@ -1,5 +1,14 @@
 from collections import deque
 
+class Node(object):
+    def __init__(self, value, id, children=[]):
+        self.value = value
+        self.id = id
+        self.children = children
+    
+    def __repr__(self):
+        return "<Node id='{}' value='{}'>".format(self.id, self.value)
+
 """
     + Quick access to elements
     + Small amount of required memory
@@ -11,27 +20,33 @@ class AdjacencyListTree(object):
         self.root = root
         self.nodes = nodes_dict
     
-    def search(self, value):
+    def search_by_id(self, id):
         if not self.nodes:
             return None
-        return self.nodes.get(value, -1)
+        return self.nodes.get(id, None)
 
-    def dfs(self):
+    def dfs(self, value):
         # if not self.root:
         #     return -1
         if not self.nodes:
-            return -1
-        
-        node_index = self.root
-        self._dfs_recursive(node_index)
+            return None
+
+        return self._dfs_recursive(self.root, value)
     
-    def _dfs_recursive(self, node_index):
-        print("Checking Node '{}'".format(node_index))
-        node = self.nodes.get(node_index)
+    def _dfs_recursive(self, node_id, value):
+        print("Checking Node '{}'".format(node_id))
+        node = self.nodes.get(node_id)
+
         if not node:
-            return
-        for child in node:
-            self._dfs_recursive(child)
+            return None
+        if node.value == value:
+            return node
+        for child_id in node.children:
+            res = self._dfs_recursive(child_id, value)
+            if res:
+                return res
+
+        return None
     
     def bfs(self):
         if not self.nodes:
@@ -50,42 +65,51 @@ class AdjacencyListTree(object):
 
 if __name__ == "__main__":
     nodes = {
-        0: [1, 2, 3],
-        1: [4, 5],
-        2: [6],
-        3: [7, 8],
-        4: [9],
-        5: None,
-        6: [10, 11],
-        7: None,
-        8: [12, 13],
-        9: None,
-        10: [14, 15],
-        11: None,
-        12: None,
-        13: None,
-        14: None,
-        15: None
+        0: Node(id=0, value=5, children=[1, 2, 3]),
+        1: Node(id=1, value=10, children=[4, 5]),
+        2: Node(id=2, value=15, children=[6]),
+        3: Node(id=3, value=20, children=[7, 8]),
+        4: Node(id=4, value=25, children=[9]),
+        5: Node(id=5, value=30),
+        6: Node(id=6, value=35, children=[10, 11]),
+        7: Node(id=7, value=40),
+        8: Node(id=8, value=45, children=[12, 13]),
+        9: Node(id=9, value=50),
+        10: Node(id=10, value=55, children=[14, 15]),
+        11: Node(id=11, value=60),
+        12: Node(id=12, value=60),
+        13: Node(id=13, value=65),
+        14: Node(id=14, value=70),
+        15: Node(id=15, value=75)
     }
     t = AdjacencyListTree(0, nodes)
 
     print("Searching for 6")
-    print(t.search(6))
+    print(t.search_by_id(6))
 
     print("Searching for 13")
-    print(t.search(13))
+    print(t.search_by_id(13))
 
     print("Searching for 15")
-    print(t.search(15))
+    print(t.search_by_id(15))
 
     print("Searching for -1")
-    print(t.search(-1))
+    print(t.search_by_id(-1))
 
-    print("DFS Walkthrough")
-    t.dfs()
+    print("DFS Search for 40")
+    print(t.dfs(40))
 
-    print("BFS Walkthrough")
-    t.bfs()
+    print("DFS Search for 70")
+    print(t.dfs(70))
+
+    print("DFS Search for 90")
+    print(t.dfs(90))
+
+    print("DFS Search for 0")
+    print(t.dfs(0))
+
+    # print("BFS Search for 40")
+    # t.bfs()
 
     # print("DFS Stack Searching for 6")
     # print(t.dfs_with_stack(6))
