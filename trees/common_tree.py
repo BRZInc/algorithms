@@ -30,6 +30,8 @@ class Tree(object):
         
         return None
 
+    # TODO: DFS using Stack
+
     def bfs(self, value):
         if not self.root:
             return None
@@ -134,6 +136,32 @@ class Tree(object):
 
         return nodes
 
+    # Min Height
+    def get_min_height(self):
+        if not self.root:
+            return -1
+
+        min_height = 32000
+        return self._get_min_height_recursive(0, min_height, self.root)
+
+    def _get_min_height_recursive(self, height, min_height, node):
+        height = height + 1
+        print("Checking Node '{}' on height '{}' with min_height '{}'".format(node.value, height, min_height))
+        if height >= min_height:
+            return min_height
+        if len(node.children) == 0:
+            if height < min_height:
+                min_height = height
+
+        for child in node.children:
+            res = self._get_min_height_recursive(height, min_height, child)
+            if min_height > res:
+                min_height = res
+
+        return min_height
+
+    # TODO: Max Height
+
 
 if __name__ == "__main__":
     n13 = Node(value=13)
@@ -190,3 +218,6 @@ if __name__ == "__main__":
 
     print("Get all nodes list using BFS")
     print(t.get_list())
+
+    print("Find min height using DFS")
+    print(t.get_min_height())
