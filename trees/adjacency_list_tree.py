@@ -153,6 +153,9 @@ class AdjacencyListTree(object):
 
         return max
 
+    def get_list(self):
+        return [node for key, node in self.nodes.items()]
+
 if __name__ == "__main__":
     nodes = {
         0: Node(id=0, value=5, children=[1, 2, 3]),
@@ -222,8 +225,8 @@ if __name__ == "__main__":
     print("Find max using DFS")
     print(t.find_max_dfs())
 
-    # print("Get all nodes list using BFS")
-    # print(t.get_list())
+    print("Get all nodes list")
+    print(t.get_list())
 
     # print("Find min height using DFS")
     # print(t.get_min_height())
