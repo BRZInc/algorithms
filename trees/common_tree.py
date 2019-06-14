@@ -118,6 +118,21 @@ class Tree(object):
     # Update
     # Delete
     # List
+    def get_list(self):
+        if not self.root:
+            return []
+        nodes = []
+        q = deque()
+        q.append(self.root)
+
+        while q:
+            node = q.popleft()
+            nodes.append(node)
+
+            for child in node.children:
+                q.append(child)
+
+        return nodes
 
 
 if __name__ == "__main__":
@@ -172,3 +187,6 @@ if __name__ == "__main__":
 
     print("Find max using DFS")
     print(t.find_max_dfs())
+
+    print("Get all nodes list using BFS")
+    print(t.get_list())
