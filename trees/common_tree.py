@@ -160,8 +160,26 @@ class Tree(object):
 
         return min_height
 
-    # TODO: Max Height
+    # Max Height
+    def get_max_height(self):
+        if not self.root:
+            return -1
+        max_height = -1
+        return self._get_max_height_recursive(0, max_height, self.root)
 
+    def _get_max_height_recursive(self, height, max_height, node):
+        height = height + 1
+        print("Checking Node '{}' on height '{}' with max_height '{}'".format(node.value, height, max_height))
+        if len(node.children) == 0:
+            if height > max_height:
+                max_height = height
+
+        for child in node.children:
+            res = self._get_max_height_recursive(height, max_height, child)
+            if res > max_height:
+                max_height = res
+
+        return max_height
 
 if __name__ == "__main__":
     n13 = Node(value=13)
@@ -221,3 +239,6 @@ if __name__ == "__main__":
 
     print("Find min height using DFS")
     print(t.get_min_height())
+
+    print("Find max height using DFS")
+    print(t.get_max_height())
