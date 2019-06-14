@@ -31,6 +31,20 @@ class Tree(object):
         return None
 
     # TODO: DFS using Stack
+    def dfs_with_stack(self, value):
+        if not self.root:
+            return None
+        q = deque()
+        q.append(self.root)
+        while q:
+            node = q.pop()
+            print("Checking Node '{}'".format(node.value))
+            if node.value == value:
+                return node
+            for child in node.children:
+                q.append(child)
+
+        return None
 
     def bfs(self, value):
         if not self.root:
@@ -209,6 +223,18 @@ if __name__ == "__main__":
 
     print("DFS Searching for -1")
     print(t.dfs(-1))
+
+    print("DFS Stack Searching for 6")
+    print(t.dfs_with_stack(6))
+
+    print("DFS Stack Searching for 13")
+    print(t.dfs_with_stack(13))
+
+    print("DFS Stack Searching for 15")
+    print(t.dfs_with_stack(15))
+
+    print("DFS Stack Searching for -1")
+    print(t.dfs_with_stack(-1))
 
     print("BFS Searching for 6")
     print(t.bfs(6))
