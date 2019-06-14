@@ -47,7 +47,23 @@ class Tree(object):
         return None
 
     # Min
-    def find_min(self):
+    def find_min_dfs(self):
+        if not self.root:
+            return None
+        min = self.root.value
+        return self._find_min_dfs_recursive(min, self.root)
+
+    def _find_min_dfs_recursive(self, min, node):
+        print("Checking Node '{}'".format(node.value))
+        if node.value < min:
+            min = node.value
+
+        for child in node.children:
+            min = self._find_min_dfs_recursive(min, child)
+
+        return min
+
+    def find_min_bfs(self):
         if not self.root:
             return None
         min = self.root.value
@@ -56,6 +72,7 @@ class Tree(object):
 
         while q:
             node = q.popleft()
+            print("Checking Node '{}'".format(node.value))
             if node.value < min:
                 min = node.value
             for child in node.children:
@@ -111,4 +128,7 @@ if __name__ == "__main__":
     print(t.bfs(-1))
 
     print("Find min using BFS")
-    print(t.find_min())
+    print(t.find_min_bfs())
+
+    print("Find min using DFS")
+    print(t.find_min_dfs())
