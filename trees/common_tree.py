@@ -14,15 +14,15 @@ class Tree(object):
         if not self.root:
             return None
         
-        return self.dfs_recursive(value, self.root)
+        return self._dfs_recursive(value, self.root)
 
-    def dfs_recursive(self, value, node):
+    def _dfs_recursive(self, value, node):
         print("Checking Node '{}'".format(node.value))
         if node.value == value:
             return node
         
         for n in node.children:
-            res = self.dfs_recursive(value, n)
+            res = self._dfs_recursive(value, n)
             if res:
                 return res
         
