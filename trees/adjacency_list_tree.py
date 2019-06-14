@@ -164,9 +164,9 @@ class AdjacencyListTree(object):
         return self._get_min_height_recursive(0, min_height, self.root)
 
     def _get_min_height_recursive(self, height, min_height, node_index):
-        print("Checking Node '{}' with height '{}' and min_height '{}'".format(node_index, height, min_height))
         node = self.nodes.get(node_index)
         height = height + 1
+        print("Checking Node '{}' with height '{}' and min_height '{}'".format(node_index, height, min_height))
         if not node:
             return None
         if len(node.children) == 0:
@@ -179,6 +179,32 @@ class AdjacencyListTree(object):
                 min_height = res
 
         return min_height
+
+    def get_max_height(self):
+        if not self.nodes:
+            return None
+
+        height = 0
+        max_height = 0
+        return self._get_max_height_recursive(height, max_height, self.root)
+
+    def _get_max_height_recursive(self, height, max_height, node_index):
+        height = height + 1
+        node = self.nodes[node_index]
+        print(
+            "Checking Node '{}' with height '{}' and max_height '{}'".format(
+                node_index, height, max_height))
+        if len(node.children) == 0:
+            if max_height < height:
+                max_height = height
+
+        for child_index in node.children:
+            res = self._get_max_height_recursive(height, max_height, child_index)
+            if res and res > max_height:
+                max_height = res
+
+        return max_height
+
 
 if __name__ == "__main__":
     nodes = {
@@ -255,5 +281,5 @@ if __name__ == "__main__":
     print("Find min height using DFS")
     print(t.get_min_height())
 
-    # print("Find max height using DFS")
-    # print(t.get_max_height())
+    print("Find max height using DFS")
+    print(t.get_max_height())
