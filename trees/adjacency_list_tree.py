@@ -70,6 +70,89 @@ class AdjacencyListTree(object):
 
         return None
 
+    def find_min_dfs(self):
+        if not self.nodes:
+            return None
+
+        min = 32000
+        return self._find_min_dfs_recursive(min, self.root)
+
+    def _find_min_dfs_recursive(self, min, node_index):
+        node = self.nodes.get(node_index)
+        print("Checking Node '{}'".format(node_index))
+        if not node:
+            return None
+        if node.value < min:
+            min = node.value
+
+        for child_index in node.children:
+            res = self._find_min_dfs_recursive(min, child_index)
+            if res and res < min:
+                min = res
+
+        return min
+
+    def find_min_bfs(self):
+        if not self.nodes:
+            return None
+
+        q = deque()
+        q.append(self.root)
+
+        min = 32000
+
+        while q:
+            node_index = q.popleft()
+            print("Checking Node '{}'".format(node_index))
+            node = self.nodes[node_index]
+            if node.value < min:
+                min = node.value
+            for child_index in node.children:
+                q.append(child_index)
+
+        return min
+
+    def find_max_dfs(self):
+        if not self.nodes:
+            return None
+
+        max = 0
+        return self._find_max_dfs_recursive(max, self.root)
+
+    def _find_max_dfs_recursive(self, max, node_index):
+        node = self.nodes.get(node_index)
+        print("Checking Node '{}'".format(node_index))
+
+        if not node:
+            return None
+        if node.value > max:
+            max = node.value
+
+        for child_index in node.children:
+            res = self._find_max_dfs_recursive(max, child_index)
+            if res and res > max:
+                max = res
+
+        return max
+
+    def find_max_bfs(self):
+        if not self.nodes:
+            return None
+        q = deque()
+        q.append(self.root)
+        max = 0
+
+        while q:
+            node_index = q.popleft()
+            print("Checking Node '{}'".format(node_index))
+            node = self.nodes[node_index]
+            if node.value > max:
+                max = node.value
+            for child_index in node.children:
+                q.append(child_index)
+
+        return max
+
 if __name__ == "__main__":
     nodes = {
         0: Node(id=0, value=5, children=[1, 2, 3]),
@@ -127,17 +210,17 @@ if __name__ == "__main__":
     print("BFS Searching for 0")
     print(t.bfs(0))
 
-    # print("Find min using BFS")
-    # print(t.find_min_bfs())
+    print("Find min using BFS")
+    print(t.find_min_bfs())
 
-    # print("Find min using DFS")
-    # print(t.find_min_dfs())
+    print("Find min using DFS")
+    print(t.find_min_dfs())
 
-    # print("Find max using BFS")
-    # print(t.find_max_bfs())
+    print("Find max using BFS")
+    print(t.find_max_bfs())
 
-    # print("Find max using DFS")
-    # print(t.find_max_dfs())
+    print("Find max using DFS")
+    print(t.find_max_dfs())
 
     # print("Get all nodes list using BFS")
     # print(t.get_list())
